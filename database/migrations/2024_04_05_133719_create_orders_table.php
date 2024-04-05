@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('customer_name');
             $table->decimal('total_price', 8, 2);
             $table->string('status')->default('pending');
+            $table->unsignedBigInteger('table_id');
+            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
             $table->timestamps();
         });
     }

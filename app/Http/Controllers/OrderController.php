@@ -65,6 +65,7 @@ class OrderController extends Controller
      *          @OA\JsonContent(
      *              required={"customer_name", "total_price", "status", "products"},
      *              @OA\Property(property="customer_name", type="string"),
+     *              @OA\Property(property="table_id", type="integer"),
      *              @OA\Property(property="products", type="array",
      *                  @OA\Items(
      *                      required={"id", "quantity"},
@@ -80,29 +81,35 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'customer_name' => 'required|string',
-            'products' => 'required|array',
-            'products.*.id' => 'required|exists:products,id',
-            'products.*.quantity' => 'required|integer|min:1',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'customer_name' => 'required|string',
+                'table_id' => 'required|integer',
+                'products' => 'required|array',
+                'products.*.id' => 'required|exists:products,id',
+                'products.*.quantity' => 'required|integer|min:1',
+            ]);
 
-        $totalPrice = 0;
-        foreach ($validatedData['products'] as $productData) {
-            $product = Product::find($productData['id']);
-            $totalPrice += $product->price * $productData['quantity'];
+            $totalPrice = 0;
+            foreach ($validatedData['products'] as $productData) {
+                $product = Product::find($productData['id']);
+                $totalPrice += $product->price * $productData['quantity'];
+            }
+
+            $order = Order::create([
+                'customer_name' => $validatedData['customer_name'],
+                'total_price' => $totalPrice,
+                'table_id' => $validatedData['table_id'],
+            ]);
+
+            foreach ($validatedData['products'] as $productData) {
+                $product = Product::find($productData['id']);
+                $order->products()->attach($product->id, ['quantity' => $productData['quantity']]);
+            }
+            return response()->json(['order' => $order->load('products')], 201);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->__toString()], 400);
         }
-
-        $order = Order::create([
-            'customer_name' => $validatedData['customer_name'],
-            'total_price' => $totalPrice
-        ]);
-
-        foreach ($validatedData['products'] as $productData) {
-            $product = Product::find($productData['id']);
-            $order->products()->attach($product->id, ['quantity' => $productData['quantity']]);
-        }
-        return response()->json(['order' => $order->load('products')], 201);
     }
 
     /**

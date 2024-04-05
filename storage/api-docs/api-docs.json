@@ -82,6 +82,9 @@
                                     "customer_name": {
                                         "type": "string"
                                     },
+                                    "table_id": {
+                                        "type": "integer"
+                                    },
                                     "products": {
                                         "type": "array",
                                         "items": {
@@ -236,6 +239,48 @@
                     }
                 }
             }
+        },
+        "/api/v1/tables": {
+            "get": {
+                "tags": [
+                    "Tables"
+                ],
+                "summary": "Get all tables",
+                "operationId": "1b08f80199278b1e89a3b73113205fa6",
+                "responses": {
+                    "200": {
+                        "description": "Get all tables."
+                    }
+                }
+            }
+        },
+        "/api/v1/tables/{table_id}/orders": {
+            "get": {
+                "tags": [
+                    "Tables"
+                ],
+                "summary": "Get orders for a specific table",
+                "operationId": "ace94a7415231cc98cc05f0fe5ece963",
+                "parameters": [
+                    {
+                        "name": "table_id",
+                        "in": "path",
+                        "description": "ID of the table",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of orders for the table."
+                    },
+                    "404": {
+                        "description": "Table not found."
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -250,6 +295,10 @@
         {
             "name": "Products",
             "description": "Endpoints for managing products"
+        },
+        {
+            "name": "Tables",
+            "description": "Endpoints for managing tables"
         }
     ]
 }

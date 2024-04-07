@@ -31,6 +31,32 @@ class TableController extends Controller
 
     /**
      * @OA\Get(
+     *      path="/api/v1/tables/{id}",
+     *      summary="Get details of a table by ID",
+     *      tags={"Tables"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="ID of the table",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(response="200", description="Table details."),
+     *      @OA\Response(response="404", description="Table not found.")
+     * )
+     */
+    public function show($id)
+    {
+        $table = Table::findOrFail($id);
+
+        if (!$table) {
+            return response()->json(['message' => 'Table not found!'], 404);
+        }
+        return response()->json(['table' => $table], 200);
+    }
+
+    /**
+     * @OA\Get(
      *      path="/api/v1/tables/{table_id}/orders",
      *      summary="Get orders for a specific table",
      *      tags={"Tables"},

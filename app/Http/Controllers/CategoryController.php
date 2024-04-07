@@ -30,6 +30,32 @@ class CategoryController extends Controller
 
     /**
      * @OA\Get(
+     *      path="/api/v1/categories/{id}",
+     *      summary="Get details of a category by ID",
+     *      tags={"Categories"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="ID of the category",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(response="200", description="Category details."),
+     *      @OA\Response(response="404", description="Category not found.")
+     * )
+     */
+    public function show($id)
+    {
+        $category = Category::findOrFail($id);
+
+        if (!$category) {
+            return response()->json(['message' => 'Category not found!'], 404);
+        }
+        return response()->json(['category' => $category], 200);
+    }
+
+    /**
+     * @OA\Get(
      *      path="/api/v1/categories/{category}/products",
      *      summary="Find products by category",
      *      tags={"Categories"},

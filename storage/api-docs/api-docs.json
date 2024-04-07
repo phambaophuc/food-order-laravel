@@ -20,6 +20,34 @@
                 }
             }
         },
+        "/api/v1/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get details of a category by ID",
+                "operationId": "d809927cce155b8469de92d4c76f9288",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category details."
+                    },
+                    "404": {
+                        "description": "Category not found."
+                    }
+                }
+            }
+        },
         "/api/v1/categories/{category}/products": {
             "get": {
                 "tags": [
@@ -173,6 +201,52 @@
                 }
             }
         },
+        "/api/v1/orders/{orderId}/change-status": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Update status of an order",
+                "operationId": "f2e27ed5197f8184f15cb94fe75b8282",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "ID of the order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Order status updated successfully."
+                    },
+                    "404": {
+                        "description": "Order not found."
+                    }
+                }
+            }
+        },
         "/api/v1/products": {
             "get": {
                 "tags": [
@@ -250,6 +324,34 @@
                 "responses": {
                     "200": {
                         "description": "Get all tables."
+                    }
+                }
+            }
+        },
+        "/api/v1/tables/{id}": {
+            "get": {
+                "tags": [
+                    "Tables"
+                ],
+                "summary": "Get details of a table by ID",
+                "operationId": "58fb0fb2b4167651835dea95e4209ac0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the table",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Table details."
+                    },
+                    "404": {
+                        "description": "Table not found."
                     }
                 }
             }

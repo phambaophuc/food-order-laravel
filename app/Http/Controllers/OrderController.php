@@ -113,6 +113,45 @@ class OrderController extends Controller
     }
 
     /**
+     * @OA\Put(
+     *      path="/api/v1/orders/{orderId}/change-status",
+     *      summary="Update status of an order",
+     *      tags={"Orders"},
+     *      @OA\Parameter(
+     *          name="orderId",
+     *          in="path",
+     *          required=true,
+     *          description="ID of the order",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"status"},
+     *              @OA\Property(property="status", type="string")
+     *          )
+     *      ),
+     *      @OA\Response(response="200", description="Order status updated successfully."),
+     *      @OA\Response(response="404", description="Order not found.")
+     * )
+     */
+    public function updateStatus(Request $request, $orderId)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required|string',
+        ]);
+        $order = Order::find($orderId);
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+        $order->status = $validatedData['status'];
+        $order->save();
+
+        return response()->json(['message' => 'Order status updated successfully', 'order' => $order], 200);
+    }
+
+    /**
      * @OA\Delete(
      *      path="/api/v1/orders/{id}",
      *      summary="Delete an order by ID",

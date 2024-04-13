@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderCreated;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -106,6 +107,8 @@ class OrderController extends Controller
                 $product = Product::find($productData['id']);
                 $order->products()->attach($product->id, ['quantity' => $productData['quantity']]);
             }
+
+            event(new OrderCreated($order));
             return response()->json(['order' => $order->load('products')], 201);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->__toString()], 400);

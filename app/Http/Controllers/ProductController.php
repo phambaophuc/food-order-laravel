@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="Products",
+ *     name="Product Controller",
  *     description="Endpoints for managing products"
  * )
  */
@@ -17,7 +17,7 @@ class ProductController extends Controller
      * @OA\Get(
      *      path="/api/v1/products",
      *      summary="Get all products",
-     *      tags={"Products"},
+     *      tags={"Product Controller"},
      *      @OA\Response(response="200", description="Get all products.")
      * )
      */
@@ -31,7 +31,7 @@ class ProductController extends Controller
      * @OA\Get(
      *      path="/api/v1/products/{id}",
      *      summary="Get a product by ID",
-     *      tags={"Products"},
+     *      tags={"Product Controller"},
      *      @OA\Parameter(
      *          name="id",
      *          in="path",
@@ -57,7 +57,7 @@ class ProductController extends Controller
      * @OA\Get(
      *      path="/api/v1/products/search",
      *      summary="Search products by name",
-     *      tags={"Products"},
+     *      tags={"Product Controller"},
      *      @OA\Parameter(
      *          name="name",
      *          in="query",

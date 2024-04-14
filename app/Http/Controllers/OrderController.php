@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="Orders",
+ *     name="Order Controller",
  *     description="Endpoints for managing orders"
  * )
  */
@@ -20,7 +20,7 @@ class OrderController extends Controller
      * @OA\Get(
      *      path="/api/v1/orders",
      *      summary="Get all orders",
-     *      tags={"Orders"},
+     *      tags={"Order Controller"},
      *      @OA\Response(response="200", description="Get all orders.")
      * )
      */
@@ -34,7 +34,7 @@ class OrderController extends Controller
      * @OA\Get(
      *      path="/api/v1/orders/{id}",
      *      summary="Get an order by ID",
-     *      tags={"Orders"},
+     *      tags={"Order Controller"},
      *      @OA\Parameter(
      *          name="id",
      *          in="path",
@@ -60,7 +60,7 @@ class OrderController extends Controller
      * @OA\Post(
      *      path="/api/v1/orders",
      *      summary="Create a new order",
-     *      tags={"Orders"},
+     *      tags={"Order Controller"},
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(
@@ -119,7 +119,7 @@ class OrderController extends Controller
      * @OA\Put(
      *      path="/api/v1/orders/{orderId}/change-status",
      *      summary="Update status of an order",
-     *      tags={"Orders"},
+     *      tags={"Order Controller"},
      *      @OA\Parameter(
      *          name="orderId",
      *          in="path",
@@ -158,7 +158,7 @@ class OrderController extends Controller
      * @OA\Delete(
      *      path="/api/v1/orders/{id}",
      *      summary="Delete an order by ID",
-     *      tags={"Orders"},
+     *      tags={"Order Controller"},
      *      @OA\Parameter(
      *          name="id",
      *          in="path",

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TableController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +44,7 @@ Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/tables', [TableController::class, 'index']);
 Route::get('/tables/{id}', [TableController::class, 'show']);
 Route::get('/tables/{id}/orders', [TableController::class, 'getOrdersForTable']);
+
+// Review Routes
+Route::get('/reviews', [ReviewController::class, 'index']);
+Route::post('/reviews', [ReviewController::class, 'store']);

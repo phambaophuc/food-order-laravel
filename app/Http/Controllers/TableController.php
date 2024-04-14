@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="Tables",
+ *     name="Table Controller",
  *     description="Endpoints for managing tables"
  * )
  */
@@ -19,7 +19,7 @@ class TableController extends Controller
      * @OA\Get(
      *      path="/api/v1/tables",
      *      summary="Get all tables",
-     *      tags={"Tables"},
+     *      tags={"Table Controller"},
      *      @OA\Response(response="200", description="Get all tables.")
      * )
      */
@@ -33,7 +33,7 @@ class TableController extends Controller
      * @OA\Get(
      *      path="/api/v1/tables/{id}",
      *      summary="Get details of a table by ID",
-     *      tags={"Tables"},
+     *      tags={"Table Controller"},
      *      @OA\Parameter(
      *          name="id",
      *          in="path",
@@ -59,7 +59,7 @@ class TableController extends Controller
      * @OA\Get(
      *      path="/api/v1/tables/{table_id}/orders",
      *      summary="Get orders for a specific table",
-     *      tags={"Tables"},
+     *      tags={"Table Controller"},
      *      @OA\Parameter(
      *          name="table_id",
      *          in="path",

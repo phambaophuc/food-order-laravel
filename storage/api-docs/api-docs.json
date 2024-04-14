@@ -9,7 +9,7 @@
         "/api/v1/categories": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Category Controller"
                 ],
                 "summary": "Get all categories",
                 "operationId": "d9bf255011b42d56bf306832dc3366c8",
@@ -23,7 +23,7 @@
         "/api/v1/categories/{id}": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Category Controller"
                 ],
                 "summary": "Get details of a category by ID",
                 "operationId": "d809927cce155b8469de92d4c76f9288",
@@ -51,7 +51,7 @@
         "/api/v1/categories/{category}/products": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Category Controller"
                 ],
                 "summary": "Find products by category",
                 "operationId": "ec52ec0d1956191887c6d77ab7eb4116",
@@ -79,7 +79,7 @@
         "/api/v1/orders": {
             "get": {
                 "tags": [
-                    "Orders"
+                    "Order Controller"
                 ],
                 "summary": "Get all orders",
                 "operationId": "2fd056a400bd274a5b2278e92a8ed010",
@@ -91,7 +91,7 @@
             },
             "post": {
                 "tags": [
-                    "Orders"
+                    "Order Controller"
                 ],
                 "summary": "Create a new order",
                 "operationId": "f92c2f898a00f407e1efa0fd23c93b24",
@@ -150,7 +150,7 @@
         "/api/v1/orders/{id}": {
             "get": {
                 "tags": [
-                    "Orders"
+                    "Order Controller"
                 ],
                 "summary": "Get an order by ID",
                 "operationId": "d9752171673795b587d678236ac33a2a",
@@ -176,7 +176,7 @@
             },
             "delete": {
                 "tags": [
-                    "Orders"
+                    "Order Controller"
                 ],
                 "summary": "Delete an order by ID",
                 "operationId": "771df4bb7a25c0bd3287c2ba3ccbcff4",
@@ -204,7 +204,7 @@
         "/api/v1/orders/{orderId}/change-status": {
             "put": {
                 "tags": [
-                    "Orders"
+                    "Order Controller"
                 ],
                 "summary": "Update status of an order",
                 "operationId": "f2e27ed5197f8184f15cb94fe75b8282",
@@ -250,7 +250,7 @@
         "/api/v1/products": {
             "get": {
                 "tags": [
-                    "Products"
+                    "Product Controller"
                 ],
                 "summary": "Get all products",
                 "operationId": "7ca3593d05653d957ae7be1ac648ca44",
@@ -264,7 +264,7 @@
         "/api/v1/products/{id}": {
             "get": {
                 "tags": [
-                    "Products"
+                    "Product Controller"
                 ],
                 "summary": "Get a product by ID",
                 "operationId": "1948ab0c6b14a722ad6d1665cd38e1f1",
@@ -292,7 +292,7 @@
         "/api/v1/products/search": {
             "get": {
                 "tags": [
-                    "Products"
+                    "Product Controller"
                 ],
                 "summary": "Search products by name",
                 "operationId": "4b5c76b8d92c8bc2d86df4e3d2c7e58f",
@@ -314,10 +314,67 @@
                 }
             }
         },
+        "/api/v1/reviews": {
+            "get": {
+                "tags": [
+                    "Review Controller"
+                ],
+                "summary": "Get all reviews",
+                "operationId": "089acaacc3d898976a1a2793a732b604",
+                "responses": {
+                    "200": {
+                        "description": "Get all reviews."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Review Controller"
+                ],
+                "summary": "Create a new review",
+                "operationId": "050ff9620bfceb90b7a67100678b39a0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "customer",
+                                    "rating",
+                                    "comment"
+                                ],
+                                "properties": {
+                                    "customer": {
+                                        "type": "string"
+                                    },
+                                    "rating": {
+                                        "type": "number",
+                                        "format": "int",
+                                        "example": "4"
+                                    },
+                                    "comment": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Review created successfully."
+                    },
+                    "422": {
+                        "description": "Validation error."
+                    }
+                }
+            }
+        },
         "/api/v1/tables": {
             "get": {
                 "tags": [
-                    "Tables"
+                    "Table Controller"
                 ],
                 "summary": "Get all tables",
                 "operationId": "1b08f80199278b1e89a3b73113205fa6",
@@ -331,7 +388,7 @@
         "/api/v1/tables/{id}": {
             "get": {
                 "tags": [
-                    "Tables"
+                    "Table Controller"
                 ],
                 "summary": "Get details of a table by ID",
                 "operationId": "58fb0fb2b4167651835dea95e4209ac0",
@@ -359,7 +416,7 @@
         "/api/v1/tables/{table_id}/orders": {
             "get": {
                 "tags": [
-                    "Tables"
+                    "Table Controller"
                 ],
                 "summary": "Get orders for a specific table",
                 "operationId": "ace94a7415231cc98cc05f0fe5ece963",
@@ -387,19 +444,23 @@
     },
     "tags": [
         {
-            "name": "Categories",
+            "name": "Category Controller",
             "description": "Endpoints for managing categories"
         },
         {
-            "name": "Orders",
+            "name": "Order Controller",
             "description": "Endpoints for managing orders"
         },
         {
-            "name": "Products",
+            "name": "Product Controller",
             "description": "Endpoints for managing products"
         },
         {
-            "name": "Tables",
+            "name": "Review Controller",
+            "description": "Endpoints for managing reviews"
+        },
+        {
+            "name": "Table Controller",
             "description": "Endpoints for managing tables"
         }
     ]

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 /**
  * @OA\Tag(
- *     name="Categories",
+ *     name="Category Controller",
  *     description="Endpoints for managing categories"
  * )
  */
@@ -18,7 +18,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *      path="/api/v1/categories",
      *      summary="Get all categories",
-     *      tags={"Categories"},
+     *      tags={"Category Controller"},
      *      @OA\Response(response="200", description="Get all categories.")
      * )
      */
@@ -32,7 +32,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *      path="/api/v1/categories/{id}",
      *      summary="Get details of a category by ID",
-     *      tags={"Categories"},
+     *      tags={"Category Controller"},
      *      @OA\Parameter(
      *          name="id",
      *          in="path",
@@ -58,7 +58,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *      path="/api/v1/categories/{category}/products",
      *      summary="Find products by category",
-     *      tags={"Categories"},
+     *      tags={"Category Controller"},
      *      @OA\Parameter(
      *          name="category",
      *          in="path",

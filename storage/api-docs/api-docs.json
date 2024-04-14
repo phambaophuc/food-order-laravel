@@ -440,6 +440,56 @@
                     }
                 }
             }
+        },
+        "/api/v1/tables/{tableId}/status": {
+            "put": {
+                "tags": [
+                    "Table Controller"
+                ],
+                "summary": "Change status of a table",
+                "operationId": "01d96059c5e679cf6c5a98a3d70748b7",
+                "parameters": [
+                    {
+                        "name": "tableId",
+                        "in": "path",
+                        "description": "ID of the table",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "available",
+                                            "occupied"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Table status updated successfully."
+                    },
+                    "404": {
+                        "description": "Table not found."
+                    }
+                }
+            }
         }
     },
     "tags": [

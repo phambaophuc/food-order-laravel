@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 /**
  * @OA\Tag(
@@ -75,5 +76,50 @@ class TableController extends Controller
     {
         $orders = Order::where('table_id', $table_id)->get();
         return response()->json(['orders' => $orders], 200);
+    }
+
+    /**
+     * @OA\Put(
+     *      path="/api/v1/tables/{tableId}/status",
+     *      summary="Change status of a table",
+     *      tags={"Table Controller"},
+     *      @OA\Parameter(
+     *          name="tableId",
+     *          in="path",
+     *          required=true,
+     *          description="ID of the table",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"status"},
+     *              @OA\Property(property="status", type="string", enum={"available", "occupied", "reserved"})
+     *          )
+     *      ),
+     *      @OA\Response(response="200", description="Table status updated successfully."),
+     *      @OA\Response(response="404", description="Table not found.")
+     * )
+     */
+    public function updateStatus(Request $request, $tableId)
+    {
+        try {
+            $validatedData = $request->validate([
+                'status' => 'required|string|in:available,occupied,reserved',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => 'The status must be one of: available, occupied, reserved'], 422);
+        }
+
+        $table = Table::find($tableId);
+
+        if (!$table) {
+            return response()->json(['error' => 'Table not found'], 404);
+        }
+
+        $table->status = $validatedData['status'];
+        $table->save();
+
+        return response()->json(['message' => 'Table status updated successfully!', 'table' => $table], 200);
     }
 }

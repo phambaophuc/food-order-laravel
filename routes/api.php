@@ -43,6 +43,7 @@ Route::post('/orders', [OrderController::class, 'store']);
 // Table Routes
 Route::get('/tables', [TableController::class, 'index']);
 Route::get('/tables/{id}', [TableController::class, 'show']);
+Route::put('/tables/{id}/status', [TableController::class, 'updateStatus']);
 Route::get('/tables/{id}/orders', [TableController::class, 'getOrdersForTable']);
 
 // Review Routes

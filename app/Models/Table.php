@@ -9,6 +9,7 @@ class Table extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['name', 'number_of_seats', 'status'];
 
     public function orders()

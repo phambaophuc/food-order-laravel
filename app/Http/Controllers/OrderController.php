@@ -158,7 +158,7 @@ class OrderController extends Controller
         $order->status = $validatedData['status'];
         $order->save();
 
-        event(new OrderUpdate($order));
+        //event(new OrderUpdate($order));
         return response()->json(['message' => 'Order status updated successfully', 'order' => $order], 200);
     }
 

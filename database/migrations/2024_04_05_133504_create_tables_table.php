@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('number_of_seats');
             $table->string('status')->default('available');
+            $table->timestamps();
         });
     }
 

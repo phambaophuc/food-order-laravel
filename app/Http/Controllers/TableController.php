@@ -74,7 +74,11 @@ class TableController extends Controller
      */
     public function getOrdersForTable($table_id)
     {
-        $orders = Order::where('table_id', $table_id)->get();
+        $orders = Order::whereHas('table', function ($query) use ($table_id) {
+            $query->whereRaw('orders.created_at > tables.updated_at')
+                ->where('id', $table_id);
+        })->get();
+
         return response()->json(['orders' => $orders], 200);
     }
 

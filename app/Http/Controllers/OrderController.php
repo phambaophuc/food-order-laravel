@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\OrderCreated;
+use App\Events\OrderUpdate;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -151,6 +152,7 @@ class OrderController extends Controller
         $order->status = $validatedData['status'];
         $order->save();
 
+        event(new OrderUpdate($order));
         return response()->json(['message' => 'Order status updated successfully', 'order' => $order], 200);
     }
 

@@ -229,7 +229,13 @@
                                 ],
                                 "properties": {
                                     "status": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "preparing",
+                                            "completed",
+                                            "cancelled"
+                                        ]
                                     }
                                 },
                                 "type": "object"
@@ -472,7 +478,8 @@
                                         "type": "string",
                                         "enum": [
                                             "available",
-                                            "occupied"
+                                            "occupied",
+                                            "reserved"
                                         ]
                                     }
                                 },

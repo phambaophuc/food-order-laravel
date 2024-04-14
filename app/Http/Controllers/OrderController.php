@@ -7,6 +7,7 @@ use App\Events\OrderUpdate;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 /**
  * @OA\Tag(
@@ -132,7 +133,7 @@ class OrderController extends Controller
      *          required=true,
      *          @OA\JsonContent(
      *              required={"status"},
-     *              @OA\Property(property="status", type="string")
+     *              @OA\Property(property="status", type="string", enum={"pending", "preparing", "completed", "cancelled"})
      *          )
      *      ),
      *      @OA\Response(response="200", description="Order status updated successfully."),
@@ -141,9 +142,14 @@ class OrderController extends Controller
      */
     public function updateStatus(Request $request, $orderId)
     {
-        $validatedData = $request->validate([
-            'status' => 'required|string',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'status' => 'required|string|in:pending,preparing,completed,cancelled',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => 'The status must be one of: pending, preparing, completed, cancelled'], 422);
+        }
+
         $order = Order::find($orderId);
 
         if (!$order) {
